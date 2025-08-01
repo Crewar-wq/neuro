@@ -1,0 +1,40 @@
+.
+├── bot.py
+├── db.py
+├── Dostoevskiy_Crime_and_Punishment.txt
+├── Dostoevskiy_Demons.txt
+├── Dostoevskiy_Idiot.txt
+├── Dostoevskiy_Poor_People.txt
+├── Dostoevskiy_Short.txt
+├── Dostoevskiy_White_Nights.txt
+├── dostoevsky_dataset.jsonl
+├── lora-mistral-dostoevsky
+│   ├── checkpoint-50
+│   │   ├── adapter_config.json
+│   │   ├── adapter_model.safetensors
+│   │   ├── optimizer.pt
+│   │   ├── README.md
+│   │   ├── rng_state.pth
+│   │   ├── scheduler.pt
+│   │   ├── trainer_state.json
+│   │   └── training_args.bin
+│   └── checkpoint-500
+│       ├── adapter_config.json
+│       ├── adapter_model.safetensors
+│       ├── optimizer.pt
+│       ├── README.md
+│       ├── rng_state.pth
+│       ├── scheduler.pt
+│       ├── trainer_state.json
+│       └── training_args.bin
+├── portforward.log
+├── prepare_dataset.py
+├── project_structure.txt
+├── __pycache__
+│   └── db.cpython-312.pyc
+├── README.md
+├── structure.txt
+├── TEST.txt
+└── train.py
+
+5 directories, 33 files
