@@ -1,0 +1,93 @@
+Подключись к хосту по кредам из беседы.
+Опиши каждый из следующих компонентов.
+
+Компонент	1.Что это?	2. Зачем нужен?	3. Как связан с другими частями?
+
+Пример: 
+Retrieval-движок 
+1. Это часть архитектуры, реализующая поиск информации по смыслу. Она получает текстовый запрос от пользователя, преобразует его в вектор (embedding), и ищет наиболее близкие вектора в базе данных PostgreSQL с расширением pgvector. На выходе — фрагменты текстов, наиболее релевантные запросу.
+2. Чтобы бот мог находить и использовать содержимое заранее загруженных текстов (например, книг Достоевского), не полагаясь на знание модели. Это позволяет отвечать осмысленно, даже если в модели нет нужной информации. Retrieval-движок делает бота «читающим» твои файлы, а не только «угадывающим» на основе параметров модели.
+3. Получает запрос от Telegram-бота (bot.py).
+Использует модель sentence-transformers (all-MiniLM-L6-v2) для создания эмбеддинга.
+Отправляет SQL-запрос в PostgreSQL (pgvector) и получает список релевантных текстов.
+Возвращает этот текст либо прямо в Telegram (если без генерации), либо передаёт его в генеративную модель (llama.cpp) в качестве контекста.
+
+Опиши следующие компоненты:	
+1. Модель llama.cpp	(Описание можешь взять из интернета)	
+2. Kubernetes Deployment (У меня миникуб, но знать нужно куб!) (Обязательно):
+Нужно знать следующие команды: 
+
+kubectl get nodes
+
+kubectl get namespaces
+Команда выводит тебе все неймспейсы. Тебя интересует неймспейс neuralbot
+
+kubectl get deployments -n neuralbot
+Список деплойментов
+
+kubectl get pods -n neuralbot
+Список подов (всех)
+
+kubectl describe pod -n neuralbot pgvector-***** 
+и
+kubectl describe deployments -n neuralbot pgvector
+Знать и понимать отличие между этими двумя командами. Знать отличие между деплойментом, подом и нодой.
+
+3. PostgreSQL + pgvector (В контейнере кубернетеса) (Обязательно)
+
+Далее файлы: (find ~ -name "ingest.py") 
+4. Файл ingest.py			
+5. Файл query.py		
+6. Файл train.py
+7. Скрипт бота (файл bot.py)
+Системные компоненты:
+8. PVC (персистентное хранилище)			
+9. Docker	(Обязательно)
+10. .env / секреты	
+Мониторинги:
+11. GitHub (Где мы сейчас)			
+12. Grafana (Обязательно) 
+13. Elastik (Kibana) (Обязательно, пока не установил) 
+14. Prometheus (Обязательно)
+15. Node_Exporter (systemctl status node_exporter)
+
+
+Для упрощения используй старую структуру проекта (либо cat structure.txt из корневой папки):
+├── bot.py
+├── db.py
+├── Dostoevskiy_Crime_and_Punishment.txt
+├── Dostoevskiy_Demons.txt
+├── Dostoevskiy_Idiot.txt
+├── Dostoevskiy_Poor_People.txt
+├── Dostoevskiy_Short.txt
+├── Dostoevskiy_White_Nights.txt
+├── dostoevsky_dataset.jsonl
+├── lora-mistral-dostoevsky
+│   ├── checkpoint-50
+│   │   ├── adapter_config.json
+│   │   ├── adapter_model.safetensors
+│   │   ├── optimizer.pt
+│   │   ├── README.md
+│   │   ├── rng_state.pth
+│   │   ├── scheduler.pt
+│   │   ├── trainer_state.json
+│   │   └── training_args.bin
+│   └── checkpoint-500
+│       ├── adapter_config.json
+│       ├── adapter_model.safetensors
+│       ├── optimizer.pt
+│       ├── README.md
+│       ├── rng_state.pth
+│       ├── scheduler.pt
+│       ├── trainer_state.json
+│       └── training_args.bin
+├── portforward.log
+├── prepare_dataset.py
+├── project_structure.txt
+├── __pycache__
+│   └── db.cpython-312.pyc
+├── README.md
+├── structure.txt
+├── TEST.txt
+└── train.py
+
