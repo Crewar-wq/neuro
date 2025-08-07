@@ -1,0 +1,18 @@
+[node_exporter]
+     ↑
+     └── /var/lib/node_exporter/nvidia.prom (наш GPU-метрик-файл)
+         ↑
+         └── /usr/local/bin/nvidia-metrics.sh (генерирует метрики)
+             ↑
+             └── cron (каждую минуту)
+
+[prometheus]
+     ↑
+     └── собирает метрики от:
+         - http://localhost:9090 (сам себя)
+         - http://localhost:9100 (node_exporter + GPU метрики)
+
+[grafana]
+     ↑
+     └── подключена к Prometheus как datasource
+         └── отображает метрики через дашборды (Node + GPU)
